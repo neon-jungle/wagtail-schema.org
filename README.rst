@@ -1,0 +1,138 @@
+==================
+wagtail-schema.org
+==================
+
+Add Schema.org JSON-LD to your website
+
+Installing
+==========
+
+Install using pip::
+
+    pip install wagtailschemaorg
+
+It works with Wagtail 1.8 and upwards.
+
+Using
+=====
+
+``wagtail-schema.org`` supports two types of schema entities:
+site-wide entities and page-specific entities.
+Site-wide entities might be the organisation that the site as a whole is about,
+while page-specific entities might be a single person that the page in question is about.
+Both sets of entities are optional, and
+sites can implement only those that make sense.
+
+Site-wide entities
+---------------
+
+A site-wide entity is printed on every page
+using the ``{% ld_for_site %}`` template tag.
+They should be entities that are relevant to the whole site,
+such as the Organisation or Person that the site is about.
+Multiple (or zero) site-wide entities can exist for a site.
+
+.. code-block:: python
+
+    from django.db import models
+    from wagtail.contrib.settings.models import register_setting
+
+    from wagtailschemaorg.models import BaseLDSetting
+    from wagtailschemaorg.registry import register_site_thing
+    from wagtailschemaorg.utils import extend
+
+
+    @register_setting
+    @register_site_thing
+    class TestOrganisation(BaseLDSetting):
+        """Details about this organisation"""
+        name = models.CharField(max_length=100)
+        phone_number = models.CharField(max_length=20)
+        email = models.EmailField()
+        twitter_handle = models.CharField(max_length=15)
+        facebook_url = models.URLField()
+
+        def ld_entity(self):
+            return extend(super().ld_entity(), {
+                '@type': 'Organisation',
+                'name': self.name,
+                'email': self.email,
+                'telephone': self.phone_number,
+                'sameAs': [
+                    self.twitter_url,
+                    self.facebook_url,
+                ],
+            })
+
+        @property
+        def twitter_url(self):
+            return 'https://twitter.com/' + self.twitter_handle
+
+.. note:: Every site-wide Thing should have a different ``@id``.
+    By default, the ``@id`` is the Thing's ``url``.
+    You can change a Thing's ``@id`` by overriding
+    ``ld_get_id`` or ``ld_get_url`` as required.
+
+Page-specific entities
+----------------------
+
+Each page can specify a list of relevant entities.
+Use ``{% ld_for_object page %}`` to print these.
+
+.. code-block:: python
+
+    from django.db import models
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel
+    from wagtail.wagtailcore.models import Page
+    from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+
+    from testapp.models import TestOrganisation
+    from wagtailschemaorg.models import PageLDMixin
+    from wagtailschemaorg.utils import extend, image_ld
+
+
+    class PersonPage(PageLDMixin, Page):
+        bio = models.TextField()
+        date_of_birth = models.DateField()
+        photo = models.ForeignKey('wagtailimages.Image', on_delete=models.PROTECT)
+
+        content_panels = Page.content_panels + [
+            FieldPanel('bio'),
+            FieldPanel('date_of_birth'),
+            ImageChooserPanel('photo'),
+        ]
+
+        def ld_entity(self):
+            site = self.get_site()
+            return extend(super().ld_entity(), {
+                '@type': 'Person',
+                'birthDate': self.date_of_birth.isoformat(),
+                'image': image_ld(self.photo, base_url=site.root_url),
+                'organisation': TestOrganisation.for_site(site),
+            })
+
+In templates
+============
+
+``wagtail-schema.org`` provides two template tags:
+
+``{% ld_for_site [site] %}``
+--------------------------------
+
+Print all the site-wide entities for a site.
+Takes an optional ``site`` argument,
+which defaults to ``request.site`` from the current template context.
+See :func:`register_site_thing` for more information on site-wide entities.
+
+``{% ld_for_object [obj] %}``
+---------------------------------
+
+Print all the entities for ``obj``.
+``obj`` is optional, and defaults to ``page`` in the current template context.
+``obj`` should implement the :class:`ThingLD` interface.
+Calls ``obj.ld_to_data_list``, and prints all the entities returned.
+
+``{% ld_entity entity %}``
+------------------------------------
+
+Print an entity directly. ``entity`` should be a :class:`dict` with JSON-LD data.
