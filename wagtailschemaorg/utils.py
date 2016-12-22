@@ -42,14 +42,15 @@ def image_ld(image, thumbnail_filter="max-200x200", base_url=None):
         return image.ld_entity()
 
     thumbnail = image.get_rendition(thumbnail_filter)
+    url = urljoin(base_url, image.file.url)
 
     return {
         '@context': 'http://schema.org',
         '@type': 'ImageObject',
-        '@id': urljoin(base_url, image.file.url),
+        '@id': url,
         'name': image.title,
-        'url': urljoin(base_url, image.file.url),
-        'contentUrl': urljoin(base_url, image.file.url),
+        'url': url,
+        'contentUrl': url,
         'contentSize': str(image.file.size),
         'width': Distance('{} px'.format(image.width)),
         'height': Distance('{} px'.format(image.height)),
