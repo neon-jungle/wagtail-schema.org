@@ -1,5 +1,7 @@
-.tox/
-tests/assets/
-tests/db.sqlite3
-*.egg-info
-docs/build
+/.tox/
+/tests/assets/
+/tests/db.sqlite3
+/*.egg-info
+/docs/build
+/build/
+/dist/
