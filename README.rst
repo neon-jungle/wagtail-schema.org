@@ -9,9 +9,18 @@ Installing
 
 Install using pip::
 
-    pip install wagtailschemaorg
+.. code-block:: console
 
-It works with Wagtail 1.8 and upwards.
+    $ pip install wagtailschemaorg
+
+Add it to your ``INSTALLED_APPS`` to use the Django template tags:
+
+.. code-block:: python
+
+    INSTALLED_APPS = [
+        ...
+        'wagtailschemaorg',
+    ]
 
 Using
 =====
@@ -115,9 +124,17 @@ In templates
 ============
 
 ``wagtail-schema.org`` provides two template tags:
+one for printing out the site-wide entities and
+one for page-specific entities.
+
+Django templates
+----------------
+
+Make sure that ``wagtailschemaorg`` is in your ``INSTALLED_APPS``,
+and add ``{% load wagtailschemaorg_tags %}`` to the top of your template.
 
 ``{% ld_for_site [site] %}``
---------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Print all the site-wide entities for a site.
 Takes an optional ``site`` argument,
@@ -125,14 +142,40 @@ which defaults to ``request.site`` from the current template context.
 See :func:`register_site_thing` for more information on site-wide entities.
 
 ``{% ld_for_object [obj] %}``
----------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Print all the entities for ``obj``.
 ``obj`` is optional, and defaults to ``page`` in the current template context.
 ``obj`` should implement the :class:`ThingLD` interface.
 Calls ``obj.ld_to_data_list``, and prints all the entities returned.
 
-``{% ld_entity entity %}``
-------------------------------------
+``{% ld_print_entity entity %}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Print an entity directly. ``entity`` should be a :class:`dict` with JSON-LD data.
+
+Jinja2 templates
+~~~~~~~~~~~~~~~~
+
+Add ``wagtailschemaorg.jinja2tags.WagtailSchemaOrgExtension`` to your Jinja2 extensions.
+
+``{{ ld.for_site([site]) %}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Print all the site-wide entities for a site.
+Takes an optional ``site`` argument,
+which defaults to ``request.site`` from the current template context.
+See :func:`register_site_thing` for more information on site-wide entities.
+
+``{% ld.for_object([obj]) %}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Print all the entities for ``obj``.
+``obj`` is optional, and defaults to ``page`` in the current template context.
+``obj`` should implement the :class:`ThingLD` interface.
+Calls ``obj.ld_to_data_list``, and prints all the entities returned.
+
+``{% ld.print_entity(entity) %}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Print an entity directly. ``entity`` should be a :class:`dict` with JSON-LD data.
