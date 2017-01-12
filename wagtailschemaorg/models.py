@@ -13,7 +13,7 @@ class PageLDMixin(ThingLD):
         return self.full_url
 
     def ld_entity(self):
-        return extend(super().ld_entity(), {
+        return extend(super(PageLDMixin, self).ld_entity(), {
             'name': self.title,
             'description': self.search_description,
         })

@@ -24,7 +24,7 @@ def ld_print_entity(entity):
 
 class WagtailSchemaOrgExtension(Extension):
     def __init__(self, environment):
-        super().__init__(environment)
+        super(WagtailSchemaOrgExtension, self).__init__(environment)
 
         self.environment.globals['ld'] = {
             'for_site': ld_for_site,

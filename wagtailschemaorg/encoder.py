@@ -12,4 +12,4 @@ class JSONLDEncoder(JSONEncoder):
             return image_ld(obj)
         if isinstance(obj, ThingLD):
             return obj.ld_nested_entity()
-        return super().default(obj)
+        return super(JSONLDEncoder, self).default(obj)

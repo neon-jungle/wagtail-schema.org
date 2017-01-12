@@ -13,7 +13,8 @@ class Registry(object):
             obj = getter(site)
             if obj is None:
                 continue
-            yield from obj.ld_entity_list()
+            for entity in obj.ld_entity_list():
+                yield entity
 
 
 class SiteThingLD(ThingLD):
