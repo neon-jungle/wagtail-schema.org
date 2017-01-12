@@ -20,7 +20,7 @@ class TestOrganisation(BaseLDSetting):
     facebook_url = models.URLField()
 
     def ld_entity(self):
-        return extend(super().ld_entity(), {
+        return extend(super(TestOrganisation, self).ld_entity(), {
             '@type': 'Organisation',
             'name': self.name,
             'email': self.email,
@@ -49,7 +49,7 @@ class PersonPage(PageLDMixin, Page):
 
     def ld_entity(self):
         site = self.get_site()
-        return extend(super().ld_entity(), {
+        return extend(super(PersonPage, self).ld_entity(), {
             '@type': 'Person',
             'birthDate': self.date_of_birth.isoformat(),
             'image': image_ld(self.photo, base_url=site.root_url),
