@@ -63,7 +63,7 @@ Multiple (or zero) site-wide entities can exist for a site.
 
         def ld_entity(self):
             return extend(super().ld_entity(), {
-                '@type': 'Organisation',
+                '@type': 'Organization',
                 'name': self.name,
                 'email': self.email,
                 'telephone': self.phone_number,
