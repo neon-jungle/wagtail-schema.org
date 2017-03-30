@@ -11,7 +11,7 @@ Install using pip:
 
 .. code-block:: console
 
-    $ pip install wagtailschemaorg
+    $ pip install wagtail-schema.org
 
 Add it to your ``INSTALLED_APPS`` to use the Django template tags:
 
