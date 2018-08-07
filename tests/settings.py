@@ -1,4 +1,5 @@
 import os
+
 import wagtail
 
 TESTS_DIR = os.path.dirname(os.path.abspath(__file__))

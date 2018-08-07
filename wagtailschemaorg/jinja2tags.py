@@ -1,6 +1,5 @@
 import jinja2
 from jinja2.ext import Extension
-
 from wagtailschemaorg import templates
 
 

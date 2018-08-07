@@ -3,6 +3,9 @@ import json
 import os
 
 from django.test import TestCase
+from tests.app.models import PersonPage
+from wagtailschemaorg.encoder import JSONLDEncoder
+
 try:
     from wagtail.core.models import Site
     from wagtail.images.models import Image
@@ -11,9 +14,6 @@ except ImportError:  # fallback for Wagtail <2.0
     from wagtail.wagtailcore.models import Site
     from wagtail.wagtailimages.models import Image
     from wagtail.wagtailimages.tests.utils import get_test_image_file
-
-from tests.app.models import PersonPage
-from wagtailschemaorg.encoder import JSONLDEncoder
 
 
 class TestJsonEncoding(TestCase):

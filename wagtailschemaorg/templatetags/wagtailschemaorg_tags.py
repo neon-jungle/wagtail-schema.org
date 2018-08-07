@@ -1,5 +1,4 @@
 from django.template import Library
-
 from wagtailschemaorg import templates
 
 register = Library()
