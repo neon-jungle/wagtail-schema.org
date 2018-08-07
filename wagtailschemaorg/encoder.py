@@ -1,9 +1,12 @@
 from json import JSONEncoder
 
-from wagtail.wagtailimages.models import Image
-
 from .jsonld import ThingLD
 from .utils import image_ld
+
+try:
+    from wagtail.images.models import Image
+except ImportError:  # fallback for Wagtail <2.0
+    from wagtail.wagtailimages.models import Image
 
 
 class JSONLDEncoder(JSONEncoder):

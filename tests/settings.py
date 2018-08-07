@@ -1,22 +1,37 @@
 import os
 
+import wagtail
+
 TESTS_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(TESTS_DIR)
 
 
 INSTALLED_APPS = [
     'tests.app',
-
     'wagtailschemaorg',
+]
 
-    'wagtail.wagtailusers',
-    'wagtail.wagtaildocs',
-    'wagtail.wagtailimages',
-    'wagtail.wagtailsearch',
-    'wagtail.wagtailadmin',
-    'wagtail.wagtailcore',
+if wagtail.VERSION[0] > 1:
+    INSTALLED_APPS += [
+        'wagtail.users',
+        'wagtail.documents',
+        'wagtail.images',
+        'wagtail.search',
+        'wagtail.admin',
+        'wagtail.core',
+    ]
+else:
+    INSTALLED_APPS += [
+        'wagtail.wagtailusers',
+        'wagtail.wagtaildocs',
+        'wagtail.wagtailimages',
+        'wagtail.wagtailsearch',
+        'wagtail.wagtailadmin',
+        'wagtail.wagtailcore',
+    ]
+
+INSTALLED_APPS += [
     'wagtail.contrib.settings',
-
     'modelcluster',
     'taggit',
 
