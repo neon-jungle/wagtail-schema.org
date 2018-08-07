@@ -3,6 +3,7 @@ import json
 import os
 
 from django.test import TestCase
+
 from tests.app.models import PersonPage
 from wagtailschemaorg.encoder import JSONLDEncoder
 

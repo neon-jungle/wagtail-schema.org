@@ -1,5 +1,6 @@
 from django.db import models
 from wagtail.contrib.settings.models import register_setting
+
 from wagtailschemaorg.models import BaseLDSetting, PageLDMixin
 from wagtailschemaorg.registry import register_site_thing
 from wagtailschemaorg.utils import extend, image_ld

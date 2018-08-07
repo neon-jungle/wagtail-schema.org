@@ -3,6 +3,7 @@ import json
 
 from django.template import engines
 from django.test import RequestFactory, TestCase
+
 from tests.app.models import PersonPage, TestOrganisation
 from wagtailschemaorg import templates
 from wagtailschemaorg.utils import image_ld
