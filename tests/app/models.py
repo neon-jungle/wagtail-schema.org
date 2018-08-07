@@ -1,8 +1,14 @@
 from django.db import models
 from wagtail.contrib.settings.models import register_setting
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+
+try:
+    from wagtail.admin.edit_handlers import FieldPanel
+    from wagtail.core.models import Page
+    from wagtail.images.edit_handlers import ImageChooserPanel
+except ImportError:  # fallback for Wagtail <2.0
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel
+    from wagtail.wagtailcore.models import Page
+    from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from wagtailschemaorg.models import BaseLDSetting, PageLDMixin
 from wagtailschemaorg.registry import register_site_thing
