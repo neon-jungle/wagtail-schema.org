@@ -14,7 +14,7 @@ from wagtailschemaorg.utils import image_ld
 
 class BaseTestCase(TestCase):
     def setUp(self):
-        super(BaseTestCase, self).setUp()
+        super().setUp()
 
         self.site = Site.objects.get()
         self.organisation = TestOrganisation.objects.create(
@@ -81,7 +81,7 @@ class TestTemplateFunctions(BaseTestCase):
 
 class TemplateTestMixin(object):
     def setUp(self):
-        super(TemplateTestMixin, self).setUp()
+        super().setUp()
 
         self.factory = RequestFactory()
         self.request = self.factory.get('/test/')

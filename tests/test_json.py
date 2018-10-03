@@ -13,7 +13,7 @@ from wagtailschemaorg.encoder import JSONLDEncoder
 
 class TestJsonEncoding(TestCase):
     def setUp(self):
-        super(TestJsonEncoding, self).setUp()
+        super().setUp()
         self.image = Image.objects.create(title='Test image', file=get_test_image_file())
 
     def json(self, data):

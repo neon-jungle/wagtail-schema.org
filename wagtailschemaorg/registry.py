@@ -13,12 +13,12 @@ class Registry(object):
             obj = getter(site)
             if obj is None:
                 continue
-            for entity in obj.ld_entity_list():
-                yield entity
+            yield from obj.ld_entity_list()
 
 
 class SiteThingLD(ThingLD):
     """A SiteThingLD can get a ThingLD instance for a wagtailcore.Site"""
+
     def ld_get_for_site(self, site):
         """
         Given a wagtailcore.Site, return a ThingLD instance.
