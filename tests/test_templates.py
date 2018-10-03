@@ -3,9 +3,9 @@ import json
 
 from django.template import engines
 from django.test import RequestFactory, TestCase
-from wagtail.wagtailcore.models import Site
-from wagtail.wagtailimages.models import Image
-from wagtail.wagtailimages.tests.utils import get_test_image_file
+from wagtail.core.models import Site
+from wagtail.images.models import Image
+from wagtail.images.tests.utils import get_test_image_file
 
 from tests.app.models import PersonPage, TestOrganisation
 from wagtailschemaorg import templates

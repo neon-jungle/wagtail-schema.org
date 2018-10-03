@@ -1,6 +1,6 @@
 from json import JSONEncoder
 
-from wagtail.wagtailimages.models import Image
+from wagtail.images.models import Image
 
 from .jsonld import ThingLD
 from .utils import image_ld
