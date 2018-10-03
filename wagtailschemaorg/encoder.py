@@ -1,6 +1,6 @@
 from json import JSONEncoder
 
-from wagtail.wagtailimages.models import Image
+from wagtail.images.models import Image
 
 from .jsonld import ThingLD
 from .utils import image_ld
@@ -12,4 +12,4 @@ class JSONLDEncoder(JSONEncoder):
             return image_ld(obj)
         if isinstance(obj, ThingLD):
             return obj.ld_nested_entity()
-        return super(JSONLDEncoder, self).default(obj)
+        return super().default(obj)

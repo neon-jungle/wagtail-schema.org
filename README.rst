@@ -7,6 +7,8 @@ Add Schema.org JSON-LD to your website
 Installing
 ==========
 
+wagtail-schema.org supports Wagtail 2.0 upwards.
+
 Install using pip:
 
 .. code-block:: console
@@ -91,9 +93,9 @@ Use ``{% ld_for_object page %}`` to print these.
 .. code-block:: python
 
     from django.db import models
-    from wagtail.wagtailadmin.edit_handlers import FieldPanel
-    from wagtail.wagtailcore.models import Page
-    from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+    from wagtail.admin.edit_handlers import FieldPanel
+    from wagtail.core.models import Page
+    from wagtail.images.edit_handlers import ImageChooserPanel
 
     from testapp.models import TestOrganisation
     from wagtailschemaorg.models import PageLDMixin

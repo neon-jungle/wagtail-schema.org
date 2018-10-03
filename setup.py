@@ -22,7 +22,7 @@ setup(
     url='https://github.com/takeflight/wagtail-schema.org',
 
     install_requires=[
-        'wagtail>=1.8',
+        'wagtail>=2.0',
     ],
     zip_safe=False,
     license='BSD License',

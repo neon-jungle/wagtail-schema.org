@@ -9,12 +9,12 @@ INSTALLED_APPS = [
 
     'wagtailschemaorg',
 
-    'wagtail.wagtailusers',
-    'wagtail.wagtaildocs',
-    'wagtail.wagtailimages',
-    'wagtail.wagtailsearch',
-    'wagtail.wagtailadmin',
-    'wagtail.wagtailcore',
+    'wagtail.users',
+    'wagtail.documents',
+    'wagtail.images',
+    'wagtail.search',
+    'wagtail.admin',
+    'wagtail.core',
     'wagtail.contrib.settings',
 
     'modelcluster',
@@ -36,7 +36,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.middleware.security.SecurityMiddleware',
 
-    'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.core.middleware.SiteMiddleware',
 ]
 
 ROOT_URLCONF = 'tests.app.urls'

@@ -6,7 +6,7 @@ python:
   - 3.5
 
 env:
-  - TOXENV=dj110-wt18
+  - TOXENV=dj111-wt20
 
 # Matrix of build options
 matrix:

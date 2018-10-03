@@ -1,8 +1,8 @@
 from django.db import models
+from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.contrib.settings.models import register_setting
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.core.models import Page
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from wagtailschemaorg.models import BaseLDSetting, PageLDMixin
 from wagtailschemaorg.registry import register_site_thing
@@ -20,7 +20,7 @@ class TestOrganisation(BaseLDSetting):
     facebook_url = models.URLField()
 
     def ld_entity(self):
-        return extend(super(TestOrganisation, self).ld_entity(), {
+        return extend(super().ld_entity(), {
             '@type': 'Organisation',
             'name': self.name,
             'email': self.email,
@@ -49,7 +49,7 @@ class PersonPage(PageLDMixin, Page):
 
     def ld_entity(self):
         site = self.get_site()
-        return extend(super(PersonPage, self).ld_entity(), {
+        return extend(super().ld_entity(), {
             '@type': 'Person',
             'birthDate': self.date_of_birth.isoformat(),
             'image': image_ld(self.photo, base_url=site.root_url),

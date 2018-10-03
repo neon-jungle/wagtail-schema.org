@@ -1,6 +1,5 @@
 from functools import partial
-
-from django.utils.six.moves.urllib.parse import urljoin
+from urllib.parse import urljoin
 
 
 def extend(*ds):
