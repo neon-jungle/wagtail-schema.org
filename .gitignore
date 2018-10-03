@@ -6,3 +6,5 @@
 /build/
 /dist/
 venv/
+*.pyc
+/__pycache__/

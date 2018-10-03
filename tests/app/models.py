@@ -1,6 +1,6 @@
 from django.db import models
-from wagtail.contrib.settings.models import register_setting
 from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.contrib.settings.models import register_setting
 from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
