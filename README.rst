@@ -140,7 +140,7 @@ and add ``{% load wagtailschemaorg_tags %}`` to the top of your template.
 
 Print all the site-wide entities for a site.
 Takes an optional ``site`` argument,
-which defaults to ``request.site`` from the current template context.
+which defaults to the site from the current template request context.
 See ``register_site_thing`` for more information on site-wide entities.
 
 ``{% ld_for_object [obj] %}``
@@ -166,7 +166,7 @@ Add ``wagtailschemaorg.jinja2tags.WagtailSchemaOrgExtension`` to your Jinja2 ext
 
 Print all the site-wide entities for a site.
 Takes an optional ``site`` argument,
-which defaults to ``request.site`` from the current template context.
+which defaults to the site from the current template request context.
 See ``register_site_thing`` for more information on site-wide entities.
 
 ``{% ld.for_object([obj]) %}``
