@@ -1,5 +1,6 @@
 from django.template import Library
 
+from wagtail.core.models import Site
 from wagtailschemaorg import templates
 
 register = Library()
@@ -8,14 +9,14 @@ register = Library()
 @register.simple_tag(takes_context=True)
 def ld_for_site(context, site=None):
     if site is None:
-        site = context['request'].site
+        site = Site.find_for_request(context["request"])
     return templates.ld_for_site(site)
 
 
 @register.simple_tag(takes_context=True)
 def ld_for_object(context, obj=None):
     if obj is None:
-        obj = context['page']
+        obj = context["page"]
     return templates.ld_for_object(obj)
 
 
