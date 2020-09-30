@@ -161,7 +161,7 @@ Jinja2 templates
 
 Add ``wagtailschemaorg.jinja2tags.WagtailSchemaOrgExtension`` to your Jinja2 extensions.
 
-``{{ ld.for_site([site]) %}``
+``{% ld.for_site([site]) %}``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Print all the site-wide entities for a site.
