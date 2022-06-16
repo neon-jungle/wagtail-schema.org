@@ -35,6 +35,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
 
     'wagtail.core.middleware.SiteMiddleware',
 ]
