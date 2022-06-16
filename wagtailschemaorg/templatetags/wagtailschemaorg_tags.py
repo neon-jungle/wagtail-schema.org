@@ -1,5 +1,10 @@
 from django.template import Library
-from wagtail.core.models import Site
+from wagtail import VERSION as WAGTAIL_VERSION
+
+if WAGTAIL_VERSION >= (3, 0):
+    from wagtail.models import Site
+else:
+    from wagtail.core.models import Site
 
 from wagtailschemaorg import templates
 

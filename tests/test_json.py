@@ -3,7 +3,13 @@ import json
 import os
 
 from django.test import TestCase
-from wagtail.core.models import Site
+from wagtail import VERSION as WAGTAIL_VERSION
+
+if WAGTAIL_VERSION >= (3, 0):
+    from wagtail.models import Site
+else:
+    from wagtail.core.models import Site
+    
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
 
