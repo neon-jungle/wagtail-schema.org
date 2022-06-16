@@ -22,7 +22,7 @@ setup(
     url='https://github.com/takeflight/wagtail-schema.org',
 
     install_requires=[
-        'wagtail>=2.15,<3.0',
+        'wagtail>=2.15,<4.0',
         'jinja2>=2.10,<3.0',
         'markupsafe==2.0.1',
     ],
