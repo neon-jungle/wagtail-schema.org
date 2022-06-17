@@ -5,6 +5,7 @@ if WAGTAIL_VERSION >= (3, 0):
     from wagtail.admin.panels import FieldPanel
     from wagtail.models import Page
 else:
+    from wagtail.admin.edit_handlers import FieldPanel
     from wagtail.images.edit_handlers import ImageChooserPanel
     from wagtail.core.models import Page
 
