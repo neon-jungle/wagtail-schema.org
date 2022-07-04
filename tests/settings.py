@@ -90,8 +90,13 @@ MEDIA_URL = '/media/'
 
 WAGTAIL_SITE_NAME = "Wagtail Schema.org test suite"
 
-BASE_URL = 'http://example.com'
+if WAGTAIL_VERSION >= (3, 0):
+    WAGTAILADMIN_BASE_URL = 'http://example.com'
+else:
+    BASE_URL = 'http://example.com'
 
 DEBUG = True
 
 SECRET_KEY = 'not a secret'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
