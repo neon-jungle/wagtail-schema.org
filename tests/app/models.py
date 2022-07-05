@@ -3,6 +3,7 @@ from wagtail import VERSION as WAGTAIL_VERSION
 
 if WAGTAIL_VERSION >= (3, 0):
     from wagtail.admin.panels import FieldPanel
+    from wagtail.admin.panels import FieldPanel as ImageChooserPanel
     from wagtail.models import Page
 else:
     from wagtail.admin.edit_handlers import FieldPanel
@@ -10,7 +11,6 @@ else:
     from wagtail.core.models import Page
 
 from wagtail.contrib.settings.models import register_setting
-from wagtail.images.edit_handlers import ImageChooserPanel
 
 from wagtailschemaorg.models import BaseLDSetting, PageLDMixin
 from wagtailschemaorg.registry import register_site_thing
@@ -52,7 +52,7 @@ class PersonPage(PageLDMixin, Page):
     content_panels = Page.content_panels + [
         FieldPanel('bio'),
         FieldPanel('date_of_birth'),
-        FieldPanel('photo') if WAGTAIL_VERSION >= (3, 0) else ImageChooserPanel('photo'),
+        ImageChooserPanel('photo'),
     ]
 
     def ld_entity(self):
