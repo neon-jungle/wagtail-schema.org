@@ -92,10 +92,10 @@ Use ``{% ld_for_object page %}`` to print these.
 
 .. code-block:: python
 
+    # this code example assumes that the Wagtail version is 3.0 or higher
     from django.db import models
-    from wagtail.admin.edit_handlers import FieldPanel
-    from wagtail.core.models import Page
-    from wagtail.images.edit_handlers import ImageChooserPanel
+    from wagtail.admin import FieldPanel
+    from wagtail.models import Page
 
     from testapp.models import TestOrganisation
     from wagtailschemaorg.models import PageLDMixin
@@ -110,7 +110,7 @@ Use ``{% ld_for_object page %}`` to print these.
         content_panels = Page.content_panels + [
             FieldPanel('bio'),
             FieldPanel('date_of_birth'),
-            ImageChooserPanel('photo'),
+            FieldPanel('photo'),
         ]
 
         def ld_entity(self):
