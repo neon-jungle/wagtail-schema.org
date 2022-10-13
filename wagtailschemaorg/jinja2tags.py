@@ -7,17 +7,24 @@ if WAGTAIL_VERSION >= (3, 0):
 else:
     from wagtail.core.models import Site
 
+from jinja2 import __version__ as jinja2_version
+
+if jinja2_version >= '3.0.0':
+    jinja2_context_function = jinja2.pass_context
+else:
+    jinja2_context_function = jinja2.contextfunction
+
 from wagtailschemaorg import templates
 
 
-@jinja2.contextfunction
+@jinja2_context_function
 def ld_for_site(context, site=None):
     if site is None:
         site = Site.find_for_request(context["request"])
     return templates.ld_for_site(site)
 
 
-@jinja2.contextfunction
+@jinja2_context_function
 def ld_for_object(context, obj=None):
     if obj is None:
         obj = context["page"]
