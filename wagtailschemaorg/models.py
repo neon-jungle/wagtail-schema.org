@@ -1,4 +1,9 @@
-from wagtail.contrib.settings.models import BaseSetting
+from wagtail import VERSION as WAGTAIL_VERSION
+
+if WAGTAIL_VERSION >= (4, 0):
+    from wagtail.contrib.settings.models import BaseSiteSetting as BaseSetting
+else:
+    from wagtail.contrib.settings.models import BaseSetting
 
 from .jsonld import ThingLD
 from .registry import SiteThingLD
