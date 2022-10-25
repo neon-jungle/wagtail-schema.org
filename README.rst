@@ -22,6 +22,7 @@ Add it to your ``INSTALLED_APPS`` to use the Django template tags:
     INSTALLED_APPS = [
         ...
         'wagtailschemaorg',
+        'wagtail.contrib.settings',
     ]
 
 Using
