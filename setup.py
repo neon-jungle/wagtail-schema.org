@@ -22,7 +22,7 @@ setup(
     url='https://github.com/takeflight/wagtail-schema.org',
 
     install_requires=[
-        'wagtail>=2.15,<4.0'
+        'wagtail>=2.15',
     ],
     extras_require={
         'testing': ['jinja2>=2.10,<3.0', 'markupsafe==2.0.1']
@@ -46,6 +46,21 @@ setup(
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Framework :: Django',
+        'Framework :: Django :: 3',
+        'Framework :: Django :: 3.0',
+        'Framework :: Django :: 3.1',
+        'Framework :: Django :: 3.2',
+        'Framework :: Django :: 4',
+        'Framework :: Django :: 4.0',
+        'Framework :: Django :: 4.1',
+        'Framework :: Wagtail',
+        'Framework :: Wagtail :: 2',
+        'Framework :: Wagtail :: 2.15',
+        'Framework :: Wagtail :: 2.16',
+        'Framework :: Wagtail :: 3',
+        'Framework :: Wagtail :: 3.0',
+        'Framework :: Wagtail :: 4',
+        'Framework :: Wagtail :: 4.0',
         'License :: OSI Approved :: BSD License',
     ],
 )
