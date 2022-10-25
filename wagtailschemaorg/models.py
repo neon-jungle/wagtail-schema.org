@@ -1,4 +1,9 @@
-from wagtail.contrib.settings.models import BaseSetting
+from wagtail import VERSION as WAGTAIL_VERSION
+
+if WAGTAIL_VERSION >= (4, 0):
+    from wagtail.contrib.settings.models import BaseSiteSetting
+else:
+    from wagtail.contrib.settings.models import BaseSetting as BaseSiteSetting
 
 from .jsonld import ThingLD
 from .registry import SiteThingLD
@@ -19,10 +24,10 @@ class PageLDMixin(ThingLD):
         })
 
 
-class BaseLDSetting(SiteThingLD, BaseSetting):
+class BaseLDSetting(SiteThingLD, BaseSiteSetting):
     """
     A mix of :class:`~wagtailschemaorg.registry.SiteThingLD` and
-    :class:`wagtail.contrib.settings.models.BaseSetting`.
+    :class:`wagtail.contrib.settings.models.BaseSiteSetting`.
     """
     class Meta:
         abstract = True
