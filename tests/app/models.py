@@ -1,16 +1,9 @@
 from django.db import models
-from wagtail import VERSION as WAGTAIL_VERSION
 
-if WAGTAIL_VERSION >= (3, 0):
-    from wagtail.admin.panels import FieldPanel
-    from wagtail.admin.panels import FieldPanel as ImageChooserPanel
-    from wagtail.models import Page
-else:
-    from wagtail.admin.edit_handlers import FieldPanel
-    from wagtail.images.edit_handlers import ImageChooserPanel
-    from wagtail.core.models import Page
-
+from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel as ImageChooserPanel
 from wagtail.contrib.settings.models import register_setting
+from wagtail.models import Page
 
 from wagtailschemaorg.models import BaseLDSetting, PageLDMixin
 from wagtailschemaorg.registry import register_site_thing
