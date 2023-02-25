@@ -1,9 +1,7 @@
 import jinja2
-from jinja2.ext import Extension
-
-from wagtail.models import Site
-
 from jinja2 import __version__ as jinja2_version
+from jinja2.ext import Extension
+from wagtail.models import Site
 
 if jinja2_version >= '3.0.0':
     jinja2_context_function = jinja2.pass_context

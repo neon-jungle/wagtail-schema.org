@@ -1,5 +1,4 @@
 from django.template import Library
-
 from wagtail.models import Site
 
 from wagtailschemaorg import templates
