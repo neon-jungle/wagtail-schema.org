@@ -1,11 +1,7 @@
 import jinja2
 from jinja2.ext import Extension
-from wagtail import VERSION as WAGTAIL_VERSION
 
-if WAGTAIL_VERSION >= (3, 0):
-    from wagtail.models import Site
-else:
-    from wagtail.core.models import Site
+from wagtail.models import Site
 
 from jinja2 import __version__ as jinja2_version
 
