@@ -7,13 +7,19 @@ Add Schema.org JSON-LD to your website
 Installing
 ==========
 
-wagtail-schema.org supports Wagtail 2.0 upwards.
+wagtail-schema.org supports Wagtail 2.15 upwards.
 
-Install using pip:
+Install for Wagtail 4.1+ using pip:
 
 .. code-block:: console
 
     $ pip install wagtail-schema.org
+
+Install for Wagtail < 4.1 using pip:
+
+.. code-block:: console
+
+    $ pip install wagtail-schema.org==4.0.0
 
 Add it to your ``INSTALLED_APPS`` to use the Django template tags:
 
