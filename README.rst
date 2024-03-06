@@ -7,9 +7,9 @@ Add Schema.org JSON-LD to your website
 Installing
 ==========
 
-wagtail-schema.org supports Wagtail 4.1 upwards.
+wagtail-schema.org supports Wagtail 5.2 upwards.
 
-Install for Wagtail 4.1+ using pip:
+Install for Wagtail 5.2+ using pip:
 
 .. code-block:: console
 
