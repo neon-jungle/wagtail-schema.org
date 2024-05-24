@@ -1,7 +1,6 @@
 from django.db import models
 
 from wagtail.admin.panels import FieldPanel
-from wagtail.admin.panels import FieldPanel as ImageChooserPanel
 from wagtail.contrib.settings.models import register_setting
 from wagtail.models import Page
 
@@ -45,7 +44,7 @@ class PersonPage(PageLDMixin, Page):
     content_panels = Page.content_panels + [
         FieldPanel('bio'),
         FieldPanel('date_of_birth'),
-        ImageChooserPanel('photo'),
+        FieldPanel('photo'),
     ]
 
     def ld_entity(self):
