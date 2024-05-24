@@ -25,7 +25,7 @@ setup(
         'wagtail>=5.2',
     ],
     extras_require={
-        'testing': ['jinja2>=2.10,<3.0', 'markupsafe==2.0.1']
+        'testing': ['jinja2>=2.10,<4.0', 'markupsafe==2.1.5']
     },
     zip_safe=False,
     license='BSD License',
