@@ -93,3 +93,11 @@ DEBUG = True
 SECRET_KEY = 'not a secret'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+# Wagtail 6.4+ requires this setting to be defined for running tests
+TASKS = {
+    "default": {
+        "BACKEND": "django_tasks.backends.immediate.ImmediateBackend",
+        "ENQUEUE_ON_COMMIT": False,
+    }
+}
