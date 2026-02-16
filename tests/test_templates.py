@@ -39,7 +39,6 @@ class BaseTestCase(TestCase):
 
 
 class TestTemplateFunctions(BaseTestCase):
-
     def script(self, data):
         return '<script type="application/ld+json">{}</script>'.format(
             json.dumps(data, sort_keys=True))
