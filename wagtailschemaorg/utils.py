@@ -1,34 +1,6 @@
 from functools import partial
 from urllib.parse import urljoin
 
-
-def extend(*ds):
-    """
-    Shortcut for updating a dict in a single line. Useful when updating a
-    dict from a super class:
-
-    .. code-block:: python
-
-        class Parent(object):
-            def get_json(self):
-                return {
-                    'foo': 1,
-                    'bar': 2,
-                }
-
-        class Child(Parent):
-            def get_json(self):
-                return extend(super().get_json(), {
-                    'bar': 3,
-                    'quux': 4,
-                })
-    """
-    out = {}
-    for d in ds:
-        out.update(d)
-    return out
-
-
 def simple_type(type, value):
     return {'@type': type, '@value': value}
 

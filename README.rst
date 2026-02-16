@@ -51,7 +51,6 @@ Multiple (or zero) site-wide entities can exist for a site.
 
     from wagtailschemaorg.models import BaseLDSetting
     from wagtailschemaorg.registry import register_site_thing
-    from wagtailschemaorg.utils import extend
 
 
     @register_setting
@@ -65,16 +64,19 @@ Multiple (or zero) site-wide entities can exist for a site.
         facebook_url = models.URLField()
 
         def ld_entity(self):
-            return extend(super().ld_entity(), {
-                '@type': 'Organization',
-                'name': self.name,
-                'email': self.email,
-                'telephone': self.phone_number,
-                'sameAs': [
-                    self.twitter_url,
-                    self.facebook_url,
-                ],
-            })
+            return {
+                **super().ld_entity(),
+                **{
+                    '@type': 'Organization',
+                    'name': self.name,
+                    'email': self.email,
+                    'telephone': self.phone_number,
+                    'sameAs': [
+                        self.twitter_url,
+                        self.facebook_url,
+                    ],
+                }
+            }
 
         @property
         def twitter_url(self):
@@ -100,7 +102,7 @@ Use ``{% ld_for_object page %}`` to print these.
 
     from testapp.models import TestOrganisation
     from wagtailschemaorg.models import PageLDMixin
-    from wagtailschemaorg.utils import extend, image_ld
+    from wagtailschemaorg.utils import image_ld
 
 
     class PersonPage(PageLDMixin, Page):
@@ -116,12 +118,15 @@ Use ``{% ld_for_object page %}`` to print these.
 
         def ld_entity(self):
             site = self.get_site()
-            return extend(super().ld_entity(), {
-                '@type': 'Person',
-                'birthDate': self.date_of_birth.isoformat(),
-                'image': image_ld(self.photo, base_url=site.root_url),
-                'organisation': TestOrganisation.for_site(site),
-            })
+            return {
+                **super().ld_entity(),
+                **{
+                    '@type': 'Person',
+                    'birthDate': self.date_of_birth.isoformat(),
+                    'image': image_ld(self.photo, base_url=site.root_url),
+                    'organisation': TestOrganisation.for_site(site),
+                }
+            }
 
 In templates
 ============
