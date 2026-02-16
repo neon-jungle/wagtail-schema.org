@@ -3,11 +3,9 @@ import json
 
 from django.template import engines
 from django.test import RequestFactory, TestCase
-
-from wagtail.models import Site
-
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
+from wagtail.models import Site
 
 from tests.app.models import PersonPage, TestOrganisation
 from wagtailschemaorg import templates
@@ -36,6 +34,8 @@ class BaseTestCase(TestCase):
             date_of_birth=datetime.date(1970, 1, 1),
             photo=self.image,
         ))
+        self.factory = RequestFactory()
+        self.request = self.factory.get('/test/')
 
 
 class TestTemplateFunctions(BaseTestCase):
@@ -44,7 +44,7 @@ class TestTemplateFunctions(BaseTestCase):
             json.dumps(data, sort_keys=True))
 
     def test_for_site(self):
-        out = templates.ld_for_site(self.site)
+        out = templates.ld_for_site(self.site, self.request)
         self.assertEqual(out, self.script({
             '@context': 'http://schema.org',
             '@id': 'http://localhost',
@@ -57,14 +57,14 @@ class TestTemplateFunctions(BaseTestCase):
         }))
 
     def test_for_object(self):
-        out = templates.ld_for_object(self.person)
+        out = templates.ld_for_object(self.person, self.request)
         self.assertEqual(out, self.script({
             '@context': 'http://schema.org',
             '@id': 'http://localhost/alex-citizen/',
             '@type': 'Person',
             'birthDate': '1970-01-01',
             'description': '',
-            'image': image_ld(self.image, base_url='http://localhost'),  # tested separately
+            'image': image_ld(self.image, self.request, base_url='http://localhost'),  # tested separately
             'name': 'Alex Citizen',
             'organisation': {
                 '@id': 'http://localhost',
@@ -74,7 +74,7 @@ class TestTemplateFunctions(BaseTestCase):
         }))
 
     def test_print_entity(self):
-        out = templates.ld_print_entity({'@type': 'Misc', 'hello': 'world'})
+        out = templates.ld_print_entity({'@type': 'Misc', 'hello': 'world'}, self.request)
         self.assertEqual(out, self.script({
             '@type': 'Misc', 'hello': 'world',
         }))
@@ -83,18 +83,14 @@ class TestTemplateFunctions(BaseTestCase):
 class TemplateTestMixin(object):
     def setUp(self):
         super().setUp()
-
-        self.factory = RequestFactory()
-        self.request = self.factory.get('/test/')
         self.request.site = self.site
 
-    def render(self, string, context=None, request_context=True):
+    def render(self, string, context=None):
         if context is None:
             context = {}
 
         # Add a request to the template, to simulate a RequestContext
-        if request_context:
-            context['request'] = self.request
+        context['request'] = self.request
 
         template = self.engine.from_string(string)
         return template.render(context)
@@ -102,22 +98,22 @@ class TemplateTestMixin(object):
     def test_ld_for_object_implicit(self):
         context = {'page': self.person}
         out = self.render_for_object_implicit(context)
-        self.assertEqual(out, templates.ld_for_object(self.person))
+        self.assertEqual(out, templates.ld_for_object(self.person, self.request))
 
     def test_ld_for_object_named(self):
         context = {'item': self.person}
         out = self.render_for_object_named(context)
-        self.assertEqual(out, templates.ld_for_object(self.person))
+        self.assertEqual(out, templates.ld_for_object(self.person, self.request))
 
     def test_ld_for_site_implicit(self):
         context = {}
         out = self.render_for_site_implicit(context)
-        self.assertEqual(out, templates.ld_for_site(self.site))
+        self.assertEqual(out, templates.ld_for_site(self.site, self.request))
 
     def test_ld_for_site_named(self):
         context = {'item': self.site}
-        out = self.render_for_site_named(context, request_context=False)
-        self.assertEqual(out, templates.ld_for_site(self.site))
+        out = self.render_for_site_named(context)
+        self.assertEqual(out, templates.ld_for_site(self.site, self.request))
 
 
 class TestDjangoTags(TemplateTestMixin, BaseTestCase):

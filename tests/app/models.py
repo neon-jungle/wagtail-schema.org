@@ -1,5 +1,4 @@
 from django.db import models
-
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.settings.models import register_setting
 from wagtail.models import Page
@@ -19,8 +18,8 @@ class TestOrganisation(BaseLDSetting):
     twitter_handle = models.CharField(max_length=15)
     facebook_url = models.URLField()
 
-    def ld_entity(self):
-        return extend(super().ld_entity(), {
+    def ld_entity(self, request):
+        return extend(super().ld_entity(request), {
             '@type': 'Organisation',
             'name': self.name,
             'email': self.email,
@@ -47,11 +46,11 @@ class PersonPage(PageLDMixin, Page):
         FieldPanel('photo'),
     ]
 
-    def ld_entity(self):
+    def ld_entity(self, request):
         site = self.get_site()
-        return extend(super().ld_entity(), {
+        return extend(super().ld_entity(request), {
             '@type': 'Person',
             'birthDate': self.date_of_birth.isoformat(),
-            'image': image_ld(self.photo, base_url=site.root_url),
+            'image': image_ld(self.photo, request, base_url=site.root_url),
             'organisation': TestOrganisation.for_site(site),
         })

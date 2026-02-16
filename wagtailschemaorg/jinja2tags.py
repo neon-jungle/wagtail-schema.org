@@ -13,20 +13,22 @@ from wagtailschemaorg import templates
 
 @jinja2_context_function
 def ld_for_site(context, site=None):
+    request = context["request"]
     if site is None:
-        site = Site.find_for_request(context["request"])
-    return templates.ld_for_site(site)
+        site = Site.find_for_request(request)
+    return templates.ld_for_site(site, request)
 
 
 @jinja2_context_function
 def ld_for_object(context, obj=None):
     if obj is None:
         obj = context["page"]
-    return templates.ld_for_object(obj)
+    return templates.ld_for_object(obj, context["request"])
 
 
-def ld_print_entity(entity):
-    return templates.ld_print_entity(entity)
+@jinja2_context_function
+def ld_print_entity(context, entity):
+    return templates.ld_print_entity(entity, context["request"])
 
 
 class WagtailSchemaOrgExtension(Extension):

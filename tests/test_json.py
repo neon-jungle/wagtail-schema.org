@@ -2,12 +2,10 @@ import datetime
 import json
 import os
 
-from django.test import TestCase
-
-from wagtail.models import Site
-
+from django.test import RequestFactory, TestCase
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
+from wagtail.models import Site
 
 from tests.app.models import PersonPage
 from wagtailschemaorg.encoder import JSONLDEncoder
@@ -17,9 +15,10 @@ class TestJsonEncoding(TestCase):
     def setUp(self):
         super().setUp()
         self.image = Image.objects.create(title='Test image', file=get_test_image_file())
+        self.request = RequestFactory().get("/")
 
     def json(self, data):
-        return json.dumps(data, sort_keys=True, cls=JSONLDEncoder)
+        return json.dumps(data, sort_keys=True, cls=JSONLDEncoder.with_request(self.request))
 
     def test_image_ld(self):
         filename, _ = os.path.splitext(os.path.basename(self.image.file.name))
