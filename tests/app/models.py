@@ -5,7 +5,7 @@ from wagtail.models import Page
 
 from wagtailschemaorg.models import BaseLDSetting, PageLDMixin
 from wagtailschemaorg.registry import register_site_thing
-from wagtailschemaorg.utils import extend, image_ld
+from wagtailschemaorg.utils import image_ld
 
 
 @register_setting
@@ -19,7 +19,8 @@ class TestOrganisation(BaseLDSetting):
     facebook_url = models.URLField()
 
     def ld_entity(self, request):
-        return extend(super().ld_entity(request), {
+        return {
+            **super().ld_entity(request),
             '@type': 'Organisation',
             'name': self.name,
             'email': self.email,
@@ -28,7 +29,7 @@ class TestOrganisation(BaseLDSetting):
                 self.twitter_url,
                 self.facebook_url,
             ],
-        })
+        }
 
     @property
     def twitter_url(self):
@@ -48,9 +49,10 @@ class PersonPage(PageLDMixin, Page):
 
     def ld_entity(self, request):
         site = self.get_site()
-        return extend(super().ld_entity(request), {
+        return {
+            **super().ld_entity(request),
             '@type': 'Person',
             'birthDate': self.date_of_birth.isoformat(),
             'image': image_ld(self.photo, request, base_url=site.root_url),
             'organisation': TestOrganisation.for_site(site),
-        })
+        }

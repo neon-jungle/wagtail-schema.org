@@ -2,7 +2,6 @@ from wagtail.contrib.settings.models import BaseSiteSetting
 
 from .jsonld import ThingLD
 from .registry import SiteThingLD
-from .utils import extend
 
 
 class PageLDMixin(ThingLD):
@@ -13,10 +12,11 @@ class PageLDMixin(ThingLD):
         return self.get_full_url(request)
 
     def ld_entity(self, request):
-        return extend(super(PageLDMixin, self).ld_entity(request), {
+        return {
+            **super(PageLDMixin, self).ld_entity(request),
             'name': self.title,
             'description': self.search_description,
-        })
+        }
 
 
 class BaseLDSetting(SiteThingLD, BaseSiteSetting):
