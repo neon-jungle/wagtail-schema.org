@@ -1,39 +1,74 @@
 name: Tests
 
 on:
-  pull_request:
+  push:
     branches:
       - master
-  push:
+  pull_request:
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
-        python: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+        include:
+          - name: head
+            python-version: '3.11'
+            wagtail-version: ''
+            django-version: ''
+          - name: lts_63
+            python-version: '3.11'
+            wagtail-version: '~=6.3.0'
+            django-version: '~=4.2.0'
+          - name: lts_70
+            python-version: '3.13'
+            wagtail-version: '~=7.0.0'
+            django-version: '~=5.2.0'
 
+    name: Test ${{ matrix.name }}
+    
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        id: setup-python
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python }}
+          python-version: ${{ matrix.python-version }}
+      
 
       - name: Install dependencies
-        id: install-dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install tox tox-gh-actions
+          if [ -z "${{ matrix.wagtail-version }}" ]; then
+            pip install .
+          else
+            pip install . wagtail${{ matrix.wagtail-version }} django${{ matrix.django-version }}
+          fi
+      
+      - name: Run tests
+        run: python runtests.py
 
-      - name: Test with tox
-        id: test-with-tox
+    lint:
+      runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
         run: |
-          tox
+          python -m pip install --upgrade pip
+          pip install flake8 isort
+          pip install -e .
+      
+      - name: Run flake8
+        run: flake8 wagtailschemaorg/ tests/
+      
+      - name: Run isort
+        run: isort --diff --check-only wagtailschemaorg/ tests/

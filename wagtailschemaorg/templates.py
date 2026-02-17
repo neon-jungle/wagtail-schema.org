@@ -1,5 +1,6 @@
 import json
-from django.utils.html import format_html, _json_script_escapes
+
+from django.utils.html import _json_script_escapes, format_html
 from django.utils.safestring import mark_safe
 
 from .encoder import JSONLDEncoder

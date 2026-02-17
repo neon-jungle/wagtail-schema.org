@@ -1,6 +1,7 @@
 from functools import partial
 from urllib.parse import urljoin
 
+
 def simple_type(type, value):
     return {'@type': type, '@value': value}
 
