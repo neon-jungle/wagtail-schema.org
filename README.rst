@@ -63,9 +63,9 @@ Multiple (or zero) site-wide entities can exist for a site.
         twitter_handle = models.CharField(max_length=15)
         facebook_url = models.URLField()
 
-        def ld_entity(self):
+        def ld_entity(self, request):
             return {
-                **super().ld_entity(),
+                **super().ld_entity(request),
                 '@type': 'Organization',
                 'name': self.name,
                 'email': self.email,
@@ -114,10 +114,10 @@ Use ``{% ld_for_object page %}`` to print these.
             FieldPanel('photo'),
         ]
 
-        def ld_entity(self):
+        def ld_entity(self, request):
             site = self.get_site()
             return {
-                **super().ld_entity(),
+                **super().ld_entity(request),
                 '@type': 'Person',
                 'birthDate': self.date_of_birth.isoformat(),
                 'image': image_ld(self.photo, base_url=site.root_url),
