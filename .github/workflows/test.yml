@@ -50,9 +50,9 @@ jobs:
       - name: Run tests
         run: python runtests.py
 
-    lint:
-      runs-on: ubuntu-latest
-    
+  lint:
+    runs-on: ubuntu-latest
+  
     steps:
       - uses: actions/checkout@v4
       
