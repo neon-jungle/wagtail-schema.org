@@ -44,7 +44,7 @@ jobs:
           if [ -z "${{ matrix.wagtail-version }}" ]; then
             pip install .[testing]
           else
-            pip install . wagtail${{ matrix.wagtail-version }} django${{ matrix.django-version }}
+            pip install .[testing] wagtail${{ matrix.wagtail-version }} django${{ matrix.django-version }}
           fi
       
       - name: Run tests
