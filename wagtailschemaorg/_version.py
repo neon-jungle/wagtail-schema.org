@@ -1,2 +1,2 @@
-version_bits = (4, 1, 1)
-version = '.'.join(map(str, version_bits))
+version_bits = (5, 0, 0)
+version = ".".join(map(str, version_bits))
