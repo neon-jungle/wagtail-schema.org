@@ -8,10 +8,10 @@ def simple_type(type, value):
 Distance = partial(simple_type, 'Distance')
 
 
-def image_ld(image, thumbnail_filter="max-200x200", base_url=None):
+def image_ld(image, request, thumbnail_filter="max-200x200", base_url=None):
     # Support custom image models with a to_json_ld() method
     if hasattr(image, 'to_json_ld'):
-        return image.ld_entity()
+        return image.ld_entity(request)
 
     thumbnail = image.get_rendition(thumbnail_filter)
     url = urljoin(base_url, image.file.url)

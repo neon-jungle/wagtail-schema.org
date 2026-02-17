@@ -8,12 +8,12 @@ class Registry(object):
     def register(self, getter):
         self.items.append(getter)
 
-    def get_entities(self, site):
+    def get_entities(self, site, request):
         for getter in self.items:
             obj = getter(site)
             if obj is None:
                 continue
-            yield from obj.ld_entity_list()
+            yield from obj.ld_entity_list(request)
 
 
 class SiteThingLD(ThingLD):

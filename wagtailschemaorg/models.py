@@ -8,10 +8,10 @@ class PageLDMixin(ThingLD):
     """
     Extends JSON-LD data with this page's title, url, and search_description.
     """
-    def ld_get_url(self):
-        return self.full_url
+    def ld_get_url(self, request):
+        return self.get_full_url(request)
 
-    def ld_entity(self):
+    def ld_entity(self, request):
         return {
             **super(PageLDMixin, self).ld_entity(),
             'name': self.title,
@@ -27,7 +27,7 @@ class BaseLDSetting(SiteThingLD, BaseSiteSetting):
     class Meta:
         abstract = True
 
-    def ld_get_url(self):
+    def ld_get_url(self, request):
         """
         The URL this object represents.
         By default it represents the whole site.
