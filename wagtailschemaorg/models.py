@@ -13,7 +13,7 @@ class PageLDMixin(ThingLD):
 
     def ld_entity(self, request):
         return {
-            **super(PageLDMixin, self).ld_entity(),
+            **super(PageLDMixin, self).ld_entity(request),
             'name': self.title,
             'description': self.search_description,
         }
