@@ -66,16 +66,14 @@ Multiple (or zero) site-wide entities can exist for a site.
         def ld_entity(self):
             return {
                 **super().ld_entity(),
-                **{
-                    '@type': 'Organization',
-                    'name': self.name,
-                    'email': self.email,
-                    'telephone': self.phone_number,
-                    'sameAs': [
-                        self.twitter_url,
-                        self.facebook_url,
-                    ],
-                }
+                '@type': 'Organization',
+                'name': self.name,
+                'email': self.email,
+                'telephone': self.phone_number,
+                'sameAs': [
+                    self.twitter_url,
+                    self.facebook_url,
+                ],
             }
 
         @property
@@ -120,12 +118,10 @@ Use ``{% ld_for_object page %}`` to print these.
             site = self.get_site()
             return {
                 **super().ld_entity(),
-                **{
-                    '@type': 'Person',
-                    'birthDate': self.date_of_birth.isoformat(),
-                    'image': image_ld(self.photo, base_url=site.root_url),
-                    'organisation': TestOrganisation.for_site(site),
-                }
+                '@type': 'Person',
+                'birthDate': self.date_of_birth.isoformat(),
+                'image': image_ld(self.photo, base_url=site.root_url),
+                'organisation': TestOrganisation.for_site(site),
             }
 
 In templates

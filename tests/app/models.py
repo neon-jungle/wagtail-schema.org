@@ -22,16 +22,14 @@ class TestOrganisation(BaseLDSetting):
     def ld_entity(self):
         return {
             **super().ld_entity(),
-            **{
-                '@type': 'Organisation',
-                'name': self.name,
-                'email': self.email,
-                'telephone': self.phone_number,
-                'sameAs': [
-                    self.twitter_url,
-                    self.facebook_url,
-                ],
-            }
+            '@type': 'Organisation',
+            'name': self.name,
+            'email': self.email,
+            'telephone': self.phone_number,
+            'sameAs': [
+                self.twitter_url,
+                self.facebook_url,
+            ],
         }
 
     @property
@@ -54,10 +52,8 @@ class PersonPage(PageLDMixin, Page):
         site = self.get_site()
         return {
             **super().ld_entity(),
-            **{
-                '@type': 'Person',
-                'birthDate': self.date_of_birth.isoformat(),
-                'image': image_ld(self.photo, base_url=site.root_url),
-                'organisation': TestOrganisation.for_site(site),
-            },
+            '@type': 'Person',
+            'birthDate': self.date_of_birth.isoformat(),
+            'image': image_ld(self.photo, base_url=site.root_url),
+            'organisation': TestOrganisation.for_site(site),
         }
