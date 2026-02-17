@@ -20,7 +20,7 @@ class TestOrganisation(BaseLDSetting):
 
     def ld_entity(self, request):
         return {
-            **super().ld_entity(),
+            **super().ld_entity(request),
             '@type': 'Organisation',
             'name': self.name,
             'email': self.email,
