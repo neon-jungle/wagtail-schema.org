@@ -1,17 +1,11 @@
-import jinja2
-from jinja2 import __version__ as jinja2_version
+from jinja2 import pass_context
 from jinja2.ext import Extension
 from wagtail.models import Site
-
-if jinja2_version >= '3.0.0':
-    jinja2_context_function = jinja2.pass_context
-else:
-    jinja2_context_function = jinja2.contextfunction
 
 from wagtailschemaorg import templates
 
 
-@jinja2_context_function
+@pass_context
 def ld_for_site(context, site=None):
     request = context["request"]
     if site is None:
@@ -19,14 +13,14 @@ def ld_for_site(context, site=None):
     return templates.ld_for_site(site, request)
 
 
-@jinja2_context_function
+@pass_context
 def ld_for_object(context, obj=None):
     if obj is None:
         obj = context["page"]
     return templates.ld_for_object(obj, context["request"])
 
 
-@jinja2_context_function
+@pass_context
 def ld_print_entity(context, entity):
     return templates.ld_print_entity(entity, context["request"])
 
