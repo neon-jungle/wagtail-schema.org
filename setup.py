@@ -53,9 +53,11 @@ setup(
         'Framework :: Django :: 5',
         'Framework :: Django :: 5.1',
         'Framework :: Django :: 5.2',
+        'Framework :: Django :: 6',
         'Framework :: Django :: 6.0',
         'Framework :: Wagtail',
         'Framework :: Wagtail :: 7',
+        'Framework :: Wagtail :: 7.0',
         'License :: OSI Approved :: BSD License',
     ],
 )
